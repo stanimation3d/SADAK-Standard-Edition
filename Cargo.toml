@@ -1,0 +1,31 @@
+# Cargo.toml
+
+[package]
+name = "sadak_fs"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+# Kütüphane no-std olarak derlenecek
+crate-type = ["rlib"]
+
+[[bin]]
+# Ana ikili dosya. Geleneksel main fonksiyonunu kullanmayacak.
+name = "sadak_runner"
+path = "src/main.rs"
+# 'no_main' kullanılması gerektiğini belirtir
+required-features = ["bin_runner"] 
+
+
+[dependencies]
+# alloc kütüphanesini kullanmak için gereklidir (Vec, Box, Arc vb.)
+# 'alloc' no-std kütüphaneleri için standarttır.
+alloc = { version = "0.0.0", package = "alloc-no-stdlib" } 
+
+# Sistem çağrılarına dayandığımız için standart kütüphaneyi kullanmıyoruz.
+
+[features]
+# Varsayılan özellik yok.
+default = []
+# İkili (main.rs) oluşturulduğunda etkinleştirilecek özellik.
+bin_runner = []
